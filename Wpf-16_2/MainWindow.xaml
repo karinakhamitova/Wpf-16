@@ -1,0 +1,86 @@
+﻿<Window x:Class="Wpf_16_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_16_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"  ResizeMode="NoResize">
+    <Window.Resources>
+        <PathGeometry x:Key="Up">
+            <PathFigure StartPoint="100,320">
+                <BezierSegment  Point1="114,320.04" Point2="220.5,207.54001" Point3="368.5,198.54001"/>
+            </PathFigure>
+        </PathGeometry>
+        <PathGeometry x:Key="Down">
+            <PathFigure StartPoint="368.5,198.54001">
+                <BezierSegment  Point3="610,315.04" Point2="485.5,200.54001" Point1="368.5,198.54001"/>
+            </PathFigure>
+        </PathGeometry>
+    </Window.Resources>
+    <Canvas>
+        <Canvas.Background>
+            <ImageBrush ImageSource="/data/1.jpg" Stretch="UniformToFill"/>
+        </Canvas.Background>
+        <Ellipse Height="50" Stroke="#FFDA828F" 
+                 Canvas.Bottom="50" Width="50" Canvas.Left="72" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="/data/2.jpg" Stretch="UniformToFill" TileMode="Tile"/>
+            </Ellipse.Fill>
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                BeginTime="0:0:0"
+                                 From="30"
+                                To="50"
+                                Storyboard.TargetProperty="(Height)"
+                                Duration="0:0:3"
+                                DecelerationRatio="1"
+                                />
+                            <DoubleAnimationUsingPath
+                                BeginTime="0:0:0"
+                                Storyboard.TargetProperty="(Canvas.Top)"
+                                PathGeometry="{StaticResource ResourceKey=Up}"
+                                Source="Y"
+                                Duration="0:0:3"
+                                DecelerationRatio="1"
+                                >
+                            </DoubleAnimationUsingPath>
+                            <DoubleAnimationUsingPath
+                                BeginTime="0:0:0"
+                                Storyboard.TargetProperty="(Canvas.Left)"
+                                PathGeometry="{StaticResource ResourceKey=Up}"
+                                Source="X"
+                                Duration="0:0:3"
+                                DecelerationRatio="1"
+                                >
+                            </DoubleAnimationUsingPath>
+                            <DoubleAnimationUsingPath
+                                BeginTime="0:0:3"
+                                Storyboard.TargetProperty="(Canvas.Top)"
+                                PathGeometry="{StaticResource ResourceKey=Down}"
+                                Source="Y"
+                                Duration="0:0:3"
+                                AccelerationRatio="1"
+                                >
+                            </DoubleAnimationUsingPath>
+                            <DoubleAnimationUsingPath
+                                BeginTime="0:0:3"
+                                Storyboard.TargetProperty="(Canvas.Left)"
+                                PathGeometry="{StaticResource ResourceKey=Down}"
+                                Source="X"
+                                Duration="0:0:3"
+                                AccelerationRatio="1"
+                                >
+                            </DoubleAnimationUsingPath>
+                        </Storyboard>
+                    </BeginStoryboard>
+                   
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+    </Canvas>
+</Window>
